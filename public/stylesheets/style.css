@@ -1,0 +1,150 @@
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+html{
+    height: auto;
+}
+body{
+    font-size: 17px;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Jeju Gothic', sans;
+    background-color: #000;
+    line-height: normal;
+    height: auto;
+}
+::selection{
+    background-color: #fff;;
+    color: #000;
+}
+header{
+    width: 100%;
+    height: 70px;
+    background-color: #000;
+    z-index: 1;
+    position: fixed;
+    text-align: right;
+}
+#logo{
+    width: 190px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+#upload{
+    width: 135px;
+    height: 50px;
+    margin-top: 10px;
+    margin-right: 60px;
+    border-radius: 25px;
+    border: 0px;
+    background-color: #fff;
+}
+#upload span{
+    font-size: 15pt;
+    font-weight: 700;
+    vertical-align: middle;
+}
+#upload:hover{
+    background-color: rgb(221, 221, 221);
+}
+#upload img{
+    width: 28px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+#mypage{
+    width: 28px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+#login{
+    margin-right: 20px;
+    font-weight: 500;
+    color: #fff;
+}
+#login:visited{
+    color: #aaa;
+}
+a{
+    text-decoration: none;
+}
+section{
+    text-align: center;
+    padding-top: 70px;
+}
+.item-container{
+    width: 200px;
+    color: #fff;
+    display: inline-block;
+    margin: 40px;
+}
+.item-frame{
+    position: absolute;
+    width: 200px;
+    z-index: 0;
+}
+.item-img{
+    background-color: #fff;
+    object-fit: contain;
+    z-index: -99;
+}
+.item-img1{
+    width: 135px;
+    height: 135px;
+    margin: 32px;
+}
+.item-img2{
+    width: 175px;
+    height: 175px;
+    margin: 13px;
+    margin-top: 12px;
+}
+.item-img3{
+    width: 177px;
+    height: 177px;
+    margin: 11px;
+}
+.item-img4{
+    width: 160px;
+    height: 160px;
+    margin: 20px;
+}
+.item-img5{
+    width: 142px;
+    height: 142px;
+    margin: 30px;
+    margin-top: 28px;
+}
+.item-img6{
+    width: 171px;
+    height: 171px;
+    margin: 15px;
+}
+.item-title{
+    font-family: 'nanummyeongjo', sans;
+    font-size: 15pt;
+    font-weight: 700;
+    line-height: 2;
+}
+.item-author{
+    color: #aaa;
+    font-family: 'nanummyeongjo', sans;
+    text-align: right;
+    font-size: 11pt;
+}
+#more{
+    height: 40px;
+    background-color: #ffffff52;
+    color: #fff;
+    line-height: 40px;
+    border-radius: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+footer{
+    width: 100%;
+    margin-top: 30px;
+    padding: 30px 0px 20px 0px;
+    text-align: center;
+    color: #777;
+}
