@@ -1,20 +1,22 @@
 <% include ../common/index-top.ejs %>
 <section class="upload-section">
-  <div id="upload-img-container">
-    <img id="upload-img" alt="uploaded" src="images/img.png"/><br/>
-    <input type="file" accept=".jpg,.png, .GIF">
-  </div>
-  <div id="upload-caption">
-    <div id="upload-title-container">
-      Title
-      <input type="text" name="upload-name" id="upload-title" required minlength="1" maxlength="20" size="10"/>
+  <form action="/upload_img" method="post" enctype="multipart/form-data">
+    <div id="upload-img-container">
+      <img id="upload-img" alt="uploaded" src="images/img.png"/><br/>
+      <input type="file" name="upload_file" accept=".jpg, .png, .gif" multiple="multiple">
     </div>
-    <div id="upload-author-container">
-        Author &nbsp;&nbsp;
-        <span style="font-size:16pt;line-height: 40px;">김탱커</span>
+    <div id="upload-caption">
+      <div id="upload-title-container">
+        Title
+        <input type="text" name="upload_title" id="upload-title" required minlength="1" maxlength="20" size="10"/>
+      </div>
+      <div id="upload-author-container">
+          Author &nbsp;&nbsp;
+          <span style="font-size:16pt;line-height: 40px;">김탱커</span>
+      </div>
+      <input type="submit" id="upload-btn" value="Upload"/>
     </div>
-    <button type="button" id="upload-btn" onclick="location.href='/upload';">Upload</button>
-  </div>
+  </form>
 </section>
 <script>
   $('input[type=file]').change( function(event) {
