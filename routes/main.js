@@ -44,4 +44,16 @@ module.exports = (app) => {
       });
     });
   });
+
+  // detail
+  app.get("/detail", (req, res) => {
+    // 조회수 올리기
+    // 받아온 no에 따른 사진, 제목, 작성자, 조회수 전달
+    res.render("detail/index", {
+      img: "KakaoTalk_Photo_2018-02-07-07-32-22_1550272248719.jpeg",
+      title: "학교가는 박부부",
+      author: "김탱커",
+      views: "10"
+    });
+  });
 };
