@@ -23,7 +23,9 @@ db.once('open', function(){
 });
 mongoose.connect('mongodb://heroku_04rmq4mh:th3r3l0ttlom0ji252rcreju4j@ds121455.mlab.com:21455/heroku_04rmq4mh')
 
-var server = app.listen(8080, function(){
+var port = process.env.PORT || 8080;
+
+var server = app.listen(port, function(){
  console.log("Express server has started on http://127.0.0.1:8080")
 });
 
