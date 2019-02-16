@@ -1,7 +1,11 @@
 module.exports = (app) => {
   // main
   app.get("/", (req, res) => {
-    res.render("main/index");
+    const Image = require('../models/image');
+    Image.find(function(err, images){
+        if(err) return res.status(500).send({error: 'database failure'});
+        res.render("main/index", {images: images.reverse()});
+    });
   });
 
   // upload
@@ -22,7 +26,6 @@ module.exports = (app) => {
     let title;
     form.parse(req, function(err, fields, files){
       title = fields.upload_title;
-      res.redirect('/');
     });
 
     form.on('end', function(field, files){
@@ -58,6 +61,7 @@ module.exports = (app) => {
         if (err) {
           console.error(err);
         }
+        res.redirect('/');
       });
     });
   });
@@ -78,7 +82,8 @@ module.exports = (app) => {
         img: image.file_name,
         title: image.title,
         author: image.author,
-        views: image.views
+        views: image.views,
+        date: image.date.slice(0, 10)
       });
     });
   });

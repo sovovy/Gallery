@@ -1,20 +1,17 @@
 <% include ../common/index-top.ejs %>
-      <section>
-<% for (var i=0; i<2; i++){ %>
-
-<% for (var j=1; j<7; j++){ %>
-        <a href="/detail?no=12">
-          <div class="item-container">
-            <img src="images/frame<%=j%>.png" alt="mypage" class="item-frame"/>
-            <img src="images/img-small.png" alt="mypage" class="item-img item-img<%=j%>"/>
-            <div class="item-title">학교가는 박부부</div>
-            <div class="item-author">-김탱커</div>
-          </div>
-        </a>
-        <% } %>
+  <section>
+<% for (var i in images){ %>
+    <a href="/detail?no=<%= images[i].no %>">
+      <div class="item-container">
+        <img src="images/frame<%= images[i].frame_num %>.png" alt="frame" class="item-frame"/>
+        <img src="uploads/small/<%= images[i].file_name %>" alt="pic" class="item-img item-img<%= images[i].frame_num %>"/>
+        <div class="item-title"><%= images[i].title %></div>
+        <div class="item-author">-<%= images[i].author %></div>
+      </div>
+    </a>
 <% } %>
-        <a href="/">
-          <div id="more"> MORE... </div>
-        </a>
-      </section>
+    <a href="/">
+      <div id="more"> MORE... </div>
+    </a>
+  </section>
 <% include ../common/index-bottom.ejs %>
