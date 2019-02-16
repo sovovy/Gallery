@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 const bodyParser = require('body-parser');
+const session = require('express-session');
 var mongoose = require('mongoose');
 
 
@@ -14,6 +15,18 @@ app.engine('html', require('ejs').renderFile);
 // [CONFIGURE APP TO USE bodyParser]
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// session
+app.use(
+    session({
+      secret: 'gallaryimda',
+      resave: false,
+      saveUninitialized: true,
+      cookie: {
+        maxAge: 1000 * 60 * 60,
+      },
+    })
+  );
 
 // mongodb 서버 연결
 var db = mongoose.connection;

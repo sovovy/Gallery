@@ -15,9 +15,37 @@
     <header>
       <a href="/"><img src="images/logo.png" alt="Logo" id="logo"/></a>
       <!-- 검색 -->
-      <!-- 업로드 버튼 -->
-      <button type="button" id="upload" onclick="location.href='/upload';"><img src="images/plus.png" alt="Logo"/><span>Upload</span></button>
-      <!-- 마이페이지 -->
-      <a href="/"><img src="images/user.png" alt="mypage" id="mypage"/></a>
-      <a href="/" id="login">로그아웃</a>
-    </header>
+      <% if(id){ %>
+        <!-- 업로드 버튼 -->
+        <button type="button" id="upload" onclick="location.href='/upload';"><img src="images/plus.png" alt="Logo"/><span>Upload</span></button>
+        <!-- 마이페이지 -->
+        <a href="/"><img src="images/user.png" alt="mypage" id="mypage"/></a>
+        <a href="/" id="login">logout</a>
+      </header>
+      <% } else { %>
+        <a style="cursor: pointer;" id="login">login</a>
+      </header>
+      <div id="login-box" class="hidden">
+        <form action="/login" method="POST">
+          <table>
+            <tr>
+              <td> ID </td>
+              <td> <input type="text" name="gg_id"/> </td>
+              <td rowspan="2"> <input type="submit" value="login"/> </td>
+            </tr>
+            <tr>
+              <td> PW </td>
+              <td> <input type="password" name="gg_pw"/> </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <script>
+        $(document).ready(function(){
+          $('#login').click(function(e){
+            e.preventDefault();
+            $('#login-box').toggleClass('hidden');
+          })
+        })
+      </script>
+      <% } %>

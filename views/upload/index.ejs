@@ -1,4 +1,9 @@
 <% include ../common/index-top.ejs %>
+<% if(!id){ %>
+  <script>
+    window.location.href = '/';
+  </script>
+<% } else { %>
 <section class="upload-section">
   <form action="/upload_img" method="post" enctype="multipart/form-data">
     <div id="upload-img-container">
@@ -12,7 +17,7 @@
       </div>
       <div id="upload-author-container">
           Author &nbsp;&nbsp;
-          <span style="font-size:16pt;line-height: 40px;">김탱커</span>
+          <span style="font-size:16pt;line-height: 40px;"><%= name %></span>
       </div>
       <input type="submit" id="upload-btn" value="Upload"/>
     </div>
@@ -23,4 +28,5 @@
       $("#upload-img").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
   });
 </script>
+<% } %>
 <% include ../common/index-bottom.ejs %>

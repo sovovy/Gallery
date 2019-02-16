@@ -25,6 +25,42 @@ header{
     position: fixed;
     text-align: right;
 }
+.hidden{
+    visibility: hidden;
+}
+#login-box{
+    width: 200px;
+    height: 120px;
+    background-image: url('/images/login_box.png');
+    background-size: cover;
+    position: fixed;
+    top: 44px;
+    right: 20px;
+    z-index: 1;
+}
+#login-box form{
+    vertical-align: middle;
+    display: flow-root;
+    text-align: center;
+    margin-top: 30px;
+    line-height: 38px;
+}
+table{
+    display: inline-block;
+    font-size: 10pt;
+}
+td input[type="text"], td input[type="password"]{
+    width: 80px;
+}
+td input[type="submit"]{
+    width: 50px;
+    height: 65px;
+    margin-left: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
 #logo{
     width: 190px;
     float: left;
@@ -61,7 +97,8 @@ header{
 #login{
     margin-right: 20px;
     font-weight: 500;
-    color: #fff;
+    color: #aaa;
+    line-height: 70px;
 }
 #login:visited{
     color: #aaa;
