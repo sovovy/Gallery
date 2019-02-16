@@ -1,6 +1,24 @@
 @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 @import url(https://fonts.googleapis.com/css?family=Nanum+Myeongjo);
 
+/* header mobile/desktop */
+@media (max-width: 570px) {
+    .desktop{
+        visibility: hidden;
+    }
+    .mobile{
+        visibility: visible;
+    }
+}
+@media (min-width: 571px) {
+    .desktop{
+        visibility: visible;
+    }
+    .mobile{
+        visibility: hidden;
+    }
+}
+
 html{
     height: auto;
 }
@@ -14,8 +32,104 @@ body{
     height: auto;
 }
 ::selection{
-    background-color: #fff;;
-    color: #000;
+    background-color: rgb(20, 48, 66);;
+    color: #fff;
+}
+.mobile header{
+    text-align: center !important;
+}
+#mobile-search{
+    width: 50px;
+    height: 70px;
+    object-fit: contain;
+    float: left;
+    margin-left: 10px;
+    visibility: hidden;
+}
+#mobile-logo{
+    width: 100px;
+    height: 70px;
+    object-fit: contain;
+}
+#mobile-key{
+    width: 50px;
+    height: 70px;
+    object-fit: contain;
+    float: right;
+    margin-right: 10px;
+}
+#mobile-login-box{
+    width: 200px;
+    height: 120px;
+    background-image: url('/images/login_box.png');
+    background-size: cover;
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    z-index: 1;
+}
+#mobile-login-box form{
+    vertical-align: middle;
+    display: flow-root;
+    text-align: center;
+    margin-top: 30px;
+    line-height: 38px;
+}
+#mobile-menu-arrow{
+    width: 45px;
+    height: 70px;
+    object-fit: contain;
+    float: right;
+    margin-right: 15px;   
+    cursor: pointer;
+    background-image: url(/images/arrow_down.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.mobile-menu-arrow-up{
+    background-image: url(/images/arrow_up.png) !important;
+}
+#mobile-menu{
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    z-index: 1;
+    top: 70px;
+    background-color: #333;
+}
+#mobile-mypage{
+    width: 50px;
+    height: 70px;
+    cursor: pointer;
+    display: inline-block;
+    background-image: url(/images/user.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 30px;
+}
+#mobile-upload{
+    width: 50px;
+    height: 70px;
+    cursor: pointer;
+    display: inline-block;
+    background-image: url(/images/user.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 30px;
+}
+#mobile-logout{
+    width: 50px;
+    height: 70px;
+    cursor: pointer;
+    display: inline-block;
+    background-image: url(/images/user.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 30px;
 }
 header{
     width: 100%;
@@ -51,6 +165,7 @@ table{
 }
 td input[type="text"], td input[type="password"]{
     width: 80px;
+    border: 1px solid #ccc;
     -webkit-appearance: none;
 }
 td input[type="submit"]{
