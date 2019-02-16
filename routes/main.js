@@ -10,14 +10,14 @@ module.exports = (app) => {
           var len = 0;
           for (var j = 0; j < images[i].title.length; j++){
             if(escape(images[i].title[j].length > 4))
-              total += 2.5;
+              total += 2;
             else
               total++;
 
-            if (total <= 30)
+            if (total <= 20)
               len = j + 1;
           }
-          if (total > 30)
+          if (total > 20)
               images[i].title = images[i].title.slice(0, len)+'...';
         }
         res.render("main/index",{
@@ -53,6 +53,21 @@ module.exports = (app) => {
     );
   });
 
+  // logout
+  app.get("/logout", (req, res) => {
+    if (req.session.gg_id) {
+      req.session.destroy(function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.redirect('/');
+        }
+      });
+    } else {
+      res.redirect('/');
+    }
+  });
+
   // upload
   app.get("/upload", (req, res) => {
     res.render("upload/index",{
@@ -80,7 +95,7 @@ module.exports = (app) => {
     form.on('end', function(field, files){
       let temp_path = this.openedFiles[0].path;
       let file_name = rename(this.openedFiles[0].name, function() {
-        return {suffix: '_'+Date.now()+'_'+req.session.gg_id};
+        return {prefix: req.session.gg_id+'_'+Date.now()+'_'};
       });
       let new_location = './public/uploads/'; 
       fs.move(temp_path, new_location + file_name, function(err){

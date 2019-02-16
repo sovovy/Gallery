@@ -51,6 +51,7 @@ table{
 }
 td input[type="text"], td input[type="password"]{
     width: 80px;
+    -webkit-appearance: none;
 }
 td input[type="submit"]{
     width: 50px;
@@ -60,6 +61,7 @@ td input[type="submit"]{
     color: white;
     border: none;
     border-radius: 10px;
+    -webkit-appearance: none;
 }
 #logo{
     width: 190px;
