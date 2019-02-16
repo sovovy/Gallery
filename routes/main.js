@@ -3,7 +3,23 @@ module.exports = (app) => {
   app.get("/", (req, res) => {
     const Image = require('../models/image');
     Image.find(function(err, images){
-        if(err) return res.status(500).send({error: 'database failure'});
+        if (err) return res.status(500).send({error: 'database failure'});
+
+        for (var i = 0; i < images.length; i++){
+          var total = 0;
+          var len = 0;
+          for (var j = 0; j < images[i].title.length; j++){
+            if(escape(images[i].title[j].length > 4))
+              total += 2.5;
+            else
+              total++;
+              
+            if (total <= 30)
+              len = j + 1;
+          }
+          if (total > 30)
+              images[i].title = images[i].title.slice(0, len)+'...';
+        }
         res.render("main/index", {images: images.reverse()});
     });
   });

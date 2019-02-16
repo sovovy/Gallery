@@ -5,11 +5,7 @@
         <div class="item-container">
           <img src="images/frame<%= images[i].frame_num %>.png" alt="frame" class="item-frame"/>
           <img src="uploads/small/<%= images[i].file_name %>" alt="pic" class="item-img item-img<%= images[i].frame_num %>"/>
-          <% if (images[i].title.length>11){ %>
-            <div class="item-title"><%= images[i].title.slice(0,11)+'...' %></div>
-          <% } else { %>
-            <div class="item-title"><%= images[i].title%></div>
-          <% } %>
+          <div class="item-title"><%= images[i].title%></div>
           <div class="item-author">-<%= images[i].author %></div>
         </div>
       </a>
@@ -24,9 +20,6 @@
             let how = images.length-last>8 ? 8 : images.length-last;
             let i = last;
             for(; i<last + how; i++){
-              if(images[i].title.length > 11){
-                images[i].title = images[i].title.slice(0, 11) + '...';
-              }
               $('#more').before('<a href="/detail?no=' + images[i].no 
                 + '"><div class="item-container"><img src="images/frame' 
                 + images[i].frame_num + '.png" alt="frame" class="item-frame"/><img src="uploads/small/'
