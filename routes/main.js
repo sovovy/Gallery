@@ -9,7 +9,7 @@ module.exports = (app) => {
           var total = 0;
           var len = 0;
           for (var j = 0; j < images[i].title.length; j++){
-            if(escape(images[i].title[j].length > 4))
+            if(escape(images[i].title[j]).length > 4)
               total += 2;
             else
               total++;
@@ -18,7 +18,7 @@ module.exports = (app) => {
               len = j + 1;
           }
           if (total > 20)
-              images[i].title = images[i].title.slice(0, len)+'...';
+              images[i].title = images[i].title.slice(0, len)+'…';
         }
         res.render("main/index",{
           images: images.reverse(),
