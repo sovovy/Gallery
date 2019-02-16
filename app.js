@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 const bodyParser = require('body-parser');
-var mongoose    = require('mongoose');
+var mongoose = require('mongoose');
 
 
 // app.get('views')할 경우 실질적인 폴더의 위치 반환
@@ -21,7 +21,7 @@ db.on('error', console.error);
 db.once('open', function(){
     console.log('Connected to mongod server')
 });
-mongoose.connect('mongodb://heroku_04rmq4mh:th3r3l0ttlom0ji252rcreju4j@ds121455.mlab.com:21455/heroku_04rmq4mh')
+mongoose.connect('mongodb://localhost/GG')
 
 var port = process.env.PORT || 8080;
 

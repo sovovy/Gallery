@@ -19,8 +19,9 @@ module.exports = (app) => {
     let form = new formidable.IncomingForm();
     form.multiples = true; 
 
+    let title;
     form.parse(req, function(err, fields, files){
-      console.log(fields.upload_title);
+      title = fields.upload_title;
       res.redirect('/');
     });
 
@@ -42,18 +43,44 @@ module.exports = (app) => {
           console.log('upload success!');
         }
       });
+      
+      const Image = require('../models/image');
+      let newImage = new Image();
+      newImage.title = title;
+      newImage.author = "김탱커";
+      newImage.user_id = 0;
+      var d = new Date();
+      newImage.date = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
+      newImage.file_name = file_name;
+      newImage.frame_num = Math.floor(Math.random() * 6) + 1;
+      newImage.views = 0;
+      newImage.save(err => {
+        if (err) {
+          console.error(err);
+        }
+      });
     });
   });
 
   // detail
   app.get("/detail", (req, res) => {
-    // 조회수 올리기
-    // 받아온 no에 따른 사진, 제목, 작성자, 조회수 전달
-    res.render("detail/index", {
-      img: "KakaoTalk_Photo_2018-02-07-07-32-22_1550272248719.jpeg",
-      title: "학교가는 박부부",
-      author: "김탱커",
-      views: "10"
+    const Image = require('../models/image');
+    Image.findOne({ no: req.query.no }, (err, image) => {
+      if (err) return res.status(500).json({ error: err });
+      if (!image) return res.status(404).json({ error: err });
+      // 조회수 올리기
+      image.views = image.views * 1 + 1;
+      image.save(function(err){
+        if(err) console.log('failed to update: ' + err);
+      });
+      // 받아온 no에 따른 사진, 제목, 작성자, 조회수 전달
+      res.render("detail/index", {
+        img: image.file_name,
+        title: image.title,
+        author: image.author,
+        views: image.views
+      });
     });
   });
+
 };
