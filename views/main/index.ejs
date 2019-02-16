@@ -1,17 +1,50 @@
 <% include ../common/index-top.ejs %>
   <section>
-<% for (var i in images){ %>
-    <a href="/detail?no=<%= images[i].no %>">
-      <div class="item-container">
-        <img src="images/frame<%= images[i].frame_num %>.png" alt="frame" class="item-frame"/>
-        <img src="uploads/small/<%= images[i].file_name %>" alt="pic" class="item-img item-img<%= images[i].frame_num %>"/>
-        <div class="item-title"><%= images[i].title %></div>
-        <div class="item-author">-<%= images[i].author %></div>
-      </div>
-    </a>
-<% } %>
-    <a href="/">
-      <div id="more"> MORE... </div>
-    </a>
+  <% for (var i=0; i<(images.length>8? 8: images.length); i++){ %>
+      <a href="/detail?no=<%= images[i].no %>">
+        <div class="item-container">
+          <img src="images/frame<%= images[i].frame_num %>.png" alt="frame" class="item-frame"/>
+          <img src="uploads/small/<%= images[i].file_name %>" alt="pic" class="item-img item-img<%= images[i].frame_num %>"/>
+          <% if (images[i].title.length>11){ %>
+            <div class="item-title"><%= images[i].title.slice(0,11)+'...' %></div>
+          <% } else { %>
+            <div class="item-title"><%= images[i].title%></div>
+          <% } %>
+          <div class="item-author">-<%= images[i].author %></div>
+        </div>
+      </a>
+  <% } %>
+  <script>
+    var images = <%- JSON.stringify(images) %>;
+    var last = 8;
+    $(document).ready(function() {
+        $('#more').click(function(){
+          // call more imgs
+          if(last<images.length){
+            let how = images.length-last>8 ? 8 : images.length-last;
+            let i = last;
+            for(; i<last + how; i++){
+              if(images[i].title.length > 11){
+                images[i].title = images[i].title.slice(0, 11) + '...';
+              }
+              $('#more').before('<a href="/detail?no=' + images[i].no 
+                + '"><div class="item-container"><img src="images/frame' 
+                + images[i].frame_num + '.png" alt="frame" class="item-frame"/><img src="uploads/small/'
+                + images[i].file_name + '" alt="pic" class="item-img item-img' 
+                + images[i].frame_num + '"/><div class="item-title">' 
+                + images[i].title + '</div><div class="item-author">-' 
+                + images[i].author + '</div></div></a>');
+            }
+            last = i;
+            
+            // no more img
+            if(how!=8 || last==images.length){
+              $('#more').css('visibility', 'hidden');
+            }
+          }
+        });
+    });
+  </script>
+    <div id="more"> MORE... </div>
   </section>
 <% include ../common/index-bottom.ejs %>

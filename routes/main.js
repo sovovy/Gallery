@@ -44,6 +44,7 @@ module.exports = (app) => {
           .toFile(new_location + 'small/' + file_name);
           
           console.log('upload success!');
+          res.redirect('/');
         }
       });
       
@@ -61,7 +62,6 @@ module.exports = (app) => {
         if (err) {
           console.error(err);
         }
-        res.redirect('/');
       });
     });
   });
