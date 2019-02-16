@@ -1,5 +1,6 @@
 <% include ../common/index-top.ejs %>
   <section>
+    <div class="filter"><span id="recent" class="selected-filter">recent</span>&nbsp&nbsp&nbsp&nbsp<span id="popular">popular</span></div>
   <% for (var i=0; i<(images.length>8? 8: images.length); i++){ %>
       <a href="/detail?no=<%= images[i].no %>">
         <div class="item-container">
@@ -13,6 +14,17 @@
   <script>
     var images = <%- JSON.stringify(images) %>;
     var last = 8;
+    // 조회순 비교 함수
+    function compare(a,b) {
+      if (a.views > b.views)
+        return -1;
+      if (a.views < b.views)
+        return 1;
+      return 0;
+    }
+    var images_r = images;
+    var images_p = images.sort(compare);
+
     $(document).ready(function() {
         $('#more').click(function(){
           // call more imgs
@@ -34,6 +46,34 @@
             if(how!=8 || last==images.length){
               $('#more').css('visibility', 'hidden');
             }
+          }
+        });
+
+        // filter
+        $('#recent').click(function(){
+          if(!$('#recent').hasClass('selected')){
+            //  기존 사진 제거
+            $('section a').remove();
+            // 새로운 8개 사진 대입
+            images = images_r;
+            last = 0;
+            $('#more').click();
+            // selected class 변경
+            $('#recent').toggleClass('selected-filter');
+            $('#popular').toggleClass('selected-filter');
+          }
+        });
+        $('#popular').click(function(){
+          if(!$('#popular').hasClass('selected')){
+            //  기존 사진 제거
+            $('section a').remove();
+            // 새로운 8개 사진 대입
+            images = images_p;
+            last = 0;
+            $('#more').click();
+            // selected class 변경
+            $('#recent').toggleClass('selected-filter');
+            $('#popular').toggleClass('selected-filter');
           }
         });
     });
