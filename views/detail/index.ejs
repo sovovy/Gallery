@@ -13,17 +13,18 @@
     $(document).ready(function(){
         Kakao.init('80ea35a972df953e1b7aa1449f4abce6');
         Kakao.Link.createDefaultButton({
-        container: '.detail-kakao',
-        objectType: 'feed',
-        content: {
-            title: '<%= title %>',
-            description: '-<%= author %>',
-            imageUrl: 'http://' + location.href.split('/')[2] + '/uploads/<%= img %>',
-            link: {
-                mobileWebUrl: location.href,
-                webUrl: location.href
-            }
-        }
+            container: '.detail-kakao',
+            objectType: 'feed',
+            content: {
+                title: '<%= title %>',
+                description: '-<%= author %>',
+                imageUrl: 'http://' + location.href.split('/')[2] + '/uploads/<%= img %>',
+                link: {
+                    mobileWebUrl: location.href,
+                    webUrl: location.href
+                }
+            },
+            success : function(messageObj){ $.post( "/share", { title: '<%= title %>' } );}
         });
     });
 </script>

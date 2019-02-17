@@ -294,7 +294,6 @@ section{
     font-size: 15pt;
     font-weight: 700;
     line-height: 2;
-    overflow: hidden;
     white-space: nowrap;
 }
 .item-author{

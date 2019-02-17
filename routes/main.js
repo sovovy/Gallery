@@ -128,7 +128,7 @@ module.exports = (app) => {
       let newImage = new Image();
       newImage.title = title;
       newImage.author = req.session.gg_name;
-      newImage.user_id = 0;
+      newImage.user_id = req.session.gg_user_id;
       var d = new Date();
       newImage.date = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
       newImage.file_name = file_name;
@@ -173,6 +173,11 @@ module.exports = (app) => {
         date: image.date.slice(0, 10)
       });
     });
+  });
+
+  // detail-share
+  app.post("/share", (req, res) => {
+    writeLog('share', `${req.session.gg_name}, ${req.body.title}`);
   });
 
   function writeLog(tag, str){
