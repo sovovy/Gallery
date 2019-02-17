@@ -43,7 +43,7 @@ module.exports = (app) => {
           require('dns').lookup(require('os').hostname(), function (err, add, fam) {
             writeLog('login-fail', `${req.body.gg_id} , ${req.body.gg_pw} (${add})`);
           })
-          return res.redirect('/');
+          return res.redirect(req.body.gg_url);
         }
         // user exist
         require('dns').lookup(require('os').hostname(), function (err, add, fam) {
@@ -53,8 +53,8 @@ module.exports = (app) => {
         req.session.gg_user_id = user.user_id;
         req.session.gg_id = user.id;
         req.session.gg_name = user.name;
-        // redirect to main
-        res.redirect('/');
+        // redirect to prev
+        return res.redirect(req.body.gg_url);
       }
     );
   });
@@ -68,12 +68,12 @@ module.exports = (app) => {
           if (err) {
             console.log(err);
           } else {
-            res.redirect('/');
+            res.redirect(req.query.url);
           }
         });
       });
     } else {
-      res.redirect('/');
+      res.redirect(req.query.url);
     }
   });
 
@@ -92,6 +92,11 @@ module.exports = (app) => {
     let fs = require('fs-extra');
     let rename = require('rename');
     let sharp = require('sharp');
+
+    // check session
+    if(!req.session.gg_id){
+      return res.redirect('/')
+    }
 
     // write log
     writeLog('upload-start', `${req.session.gg_name}`);
@@ -179,6 +184,15 @@ module.exports = (app) => {
   // detail-share
   app.post("/share", (req, res) => {
     writeLog('share', `${req.session.gg_name}, ${req.body.title}`);
+  });
+
+  // comment
+  app.post("/comment", (req, res) => {
+    // check session
+    // req.body.no
+    // req.body.content
+    // req.session.gg_id
+    writeLog('comment', `${req.session.gg_name}, ${req.body.no}, ${req.body.content}`);
   });
 
   function writeLog(tag, str){

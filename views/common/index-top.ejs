@@ -23,11 +23,19 @@
           <a href="/"><img src="images/user.png" alt="mypage" id="mypage"/></a>
           <a href="/logout" id="login">logout</a>
         </header>
+        <script>
+          $(document).ready(function(){
+            $('#login').click(function(){
+              location.href='/logout?url='+location.href;
+            });
+          });
+        </script>
         <% } else { %>
           <a style="cursor: pointer;" id="login">login</a>
         </header>
         <div id="login-box" class="hidden">
           <form action="/login" method="POST">
+            <input type="hidden" name="gg_url"/>
             <table>
               <tr>
                 <td> ID </td>
@@ -61,10 +69,14 @@
         <div id="mobile-menu" style="display: none;">
             <div id="mobile-mypage" onclick="location.href='/mypage'"></div>
             <div id="mobile-upload" onclick="location.href='/upload'"></div>
-            <div id="mobile-logout" onclick="location.href='/logout'"></div>
+            <div id="mobile-logout"></div>
         </div>
         <script>
           $(document).ready(function(){
+            $('#mobile-logout').click(function(){
+              location.href='/logout?url='+location.href;
+            });
+
             $('#mobile-menu-arrow').click(function(e){
               e.preventDefault();
               $('#mobile-menu').slideToggle(200);
@@ -77,6 +89,7 @@
         </header>
         <div id="mobile-login-box" class="hidden">
           <form action="/login" method="POST">
+            <input type="hidden" name="gg_url"/>
             <table>
               <tr>
                 <td> ID </td>
@@ -92,6 +105,7 @@
         </div>
         <script>
           $(document).ready(function(){
+            $('#mobile-login-box input[type="hidden"], #login-box input[type="hidden"]').val(location.href);
             $('#mobile-key').click(function(e){
               e.preventDefault();
               $('#mobile-login-box').toggleClass('hidden');

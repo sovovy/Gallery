@@ -477,6 +477,14 @@ input[type="file"]{
     position: relative;
     top: 45px;
 }
+#comment-header{
+    color: white;
+    font-family: 'Nanum Myeongjo', sans;
+    font-size: 22px;
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
 #comment-add input[type="text"]{
     width: 80%;
     height: 25px;

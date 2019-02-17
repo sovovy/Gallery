@@ -7,13 +7,16 @@
     <br/><br/>
     <div class="detail-date"><%= date %></div>
     <div id="comment-container">
+        <div id="comment-header">Comments</div>
+        <% if(id){ %>
         <div id="comment-add">
             <form action="/comment" method="POST">
                 <input type="text" name="content" required />
-                <input type="hidden" value="<%= no %>" />
+                <input type="hidden" name="no" value="<%= no %>" />
                 <input type="submit" value="OK" />
             </form>
         </div>
+        <% } %>
         <div id="comments">
             <table>
                 <tr><td class="comment-content">ㅋㅋㅋㅋㅋㅋ</td></tr>
