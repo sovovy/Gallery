@@ -40,9 +40,15 @@ module.exports = (app) => {
       (err, user) => {
         if (err) return res.status(500).json({ error: err });
         if (!user) {
+          require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+            writeLog('login-fail', `${req.body.gg_id} , ${req.body.gg_pw} (${add})`);
+          })
           return res.redirect('/');
         }
         // user exist
+        require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+          writeLog('login', `${user.name} (${add})`);
+        })
         // save session
         req.session.gg_user_id = user.user_id;
         req.session.gg_id = user.id;
@@ -56,12 +62,15 @@ module.exports = (app) => {
   // logout
   app.get("/logout", (req, res) => {
     if (req.session.gg_id) {
-      req.session.destroy(function(err) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.redirect('/');
-        }
+      require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+        writeLog('logout', `${req.session.gg_name} (${add})`);
+        req.session.destroy(function(err) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.redirect('/');
+          }
+        });
       });
     } else {
       res.redirect('/');
@@ -83,6 +92,9 @@ module.exports = (app) => {
     let fs = require('fs-extra');
     let rename = require('rename');
     let sharp = require('sharp');
+
+    // write log
+    writeLog('upload-start', `${req.session.gg_name}`);
     
     let form = new formidable.IncomingForm();
     form.multiples = true; 
@@ -107,7 +119,7 @@ module.exports = (app) => {
           .resize({width: 200})
           .toFile(new_location + 'small/' + file_name);
           
-          console.log('upload success!');
+          console.log('[upload-server] completed.');
           res.redirect('/');
         }
       });
@@ -122,6 +134,10 @@ module.exports = (app) => {
       newImage.file_name = file_name;
       newImage.frame_num = Math.floor(Math.random() * 6) + 1;
       newImage.views = 0;
+
+      // write log
+      writeLog('upload-end', `${newImage.author}, ${newImage.title}, ${newImage.file_name}`);
+
       newImage.save(err => {
         if (err) {
           console.error(err);
@@ -141,6 +157,12 @@ module.exports = (app) => {
       image.save(function(err){
         if(err) console.log('failed to update: ' + err);
       });
+
+      // write log
+      require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+        writeLog('detail', `${req.session.gg_name}, ${image.title}, ${image.views} (${add})`);
+      });
+
       // 받아온 no에 따른 사진, 제목, 작성자, 조회수 전달
       res.render("detail/index", {
         id: req.session.gg_id,
@@ -153,4 +175,13 @@ module.exports = (app) => {
     });
   });
 
+  function writeLog(tag, str){
+    const fs = require('fs');
+    let d = new Date();
+    let time = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
+    
+    fs.appendFile('./public/uploads/log.txt',  `${time} [${tag}] ${str} \n`, 'utf8', function(err) {
+      console.log( `[${tag}] ${str} `);
+    });
+  }
 };
