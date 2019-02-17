@@ -23,7 +23,7 @@
       return 0;
     }
     var images_r = images.slice();
-    var images_p = images.sort(compare);
+    var images_p = images.slice().sort(compare);
 
     $(document).ready(function() {
         $('#more').click(function(){
@@ -45,6 +45,8 @@
             // no more img
             if(how!=8 || last==images.length){
               $('#more').css('visibility', 'hidden');
+            }else{
+              $('#more').css('visibility', 'visible');
             }
           }
         });

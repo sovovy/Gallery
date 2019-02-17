@@ -18,7 +18,7 @@
         content: {
             title: '<%= title %>',
             description: '-<%= author %>',
-            imageUrl: 'http://5582432b.ngrok.io/uploads/<%= img %>',
+            imageUrl: 'http://' + location.href.split('/')[2] + '/uploads/<%= img %>',
             link: {
                 mobileWebUrl: location.href,
                 webUrl: location.href
