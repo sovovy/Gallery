@@ -6,6 +6,25 @@
     <span class="detail-views"><%= views %> views</span>
     <br/><br/>
     <div class="detail-date"><%= date %></div>
+    <div id="comment-container">
+        <div id="comment-add">
+            <form action="/comment" method="POST">
+                <input type="text" name="content" required />
+                <input type="hidden" value="<%= no %>" />
+                <input type="submit" value="OK" />
+            </form>
+        </div>
+        <div id="comments">
+            <table>
+                <tr><td class="comment-content">ㅋㅋㅋㅋㅋㅋ</td></tr>
+                <tr><td class="comment-info">- ㅇㅇ <span>(2019-02-19 02:19:32)</span></td></tr>
+                <tr><td class="comment-content">ㅋㅋㅋㅋㅋㅋ</td></tr>
+                <tr><td class="comment-info">- ㅇㅇ <span>(2019-02-19 02:19:32)</span></td></tr>
+                <tr><td class="comment-content">ㅋㅋㅋㅋㅋㅋ</td></tr>
+                <tr><td class="comment-info">- ㅇㅇ <span>(2019-02-19 02:19:32)</span></td></tr>
+            </table>
+        </div>
+    </div>
     <div class="detail-kakao"></div>
 </section>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>

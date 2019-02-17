@@ -161,21 +161,23 @@ header{
 }
 table{
     display: inline-block;
-    font-size: 10pt;
+    font-size: 16px;
 }
 td input[type="text"], td input[type="password"]{
     width: 80px;
     border: 1px solid #ccc;
+    font-size: 16px;
     -webkit-appearance: none;
 }
 td input[type="submit"]{
     width: 50px;
-    height: 65px;
-    margin-left: 10px;
+    height: 70px;
+    margin-left: 5px;
     background-color: black;
     color: white;
     border: none;
     border-radius: 10px;
+    font-size: 13px;
     -webkit-appearance: none;
 }
 #logo{
@@ -194,7 +196,7 @@ td input[type="submit"]{
     background-color: #fff;
 }
 #upload span{
-    font-size: 15pt;
+    font-size: 17px;
     font-weight: 700;
     vertical-align: middle;
 }
@@ -467,4 +469,51 @@ input[type="file"]{
     margin-right: 20px;
     font-size: 10pt;
     color: #555;
+}
+
+#comment-container{
+    width: 100%;
+    display: flow-root;
+    position: relative;
+    top: 45px;
+}
+#comment-add input[type="text"]{
+    width: 80%;
+    height: 25px;
+    font-family: 'Nanum Myeongjo', sans;
+    font-size: 16px;
+    border: 0px;
+    padding: 1px 10px 1px 10px;
+    display: inline-block;
+    -webkit-appearance: none;
+}
+#comment-add input[type="submit"]{
+    display: inline-block;
+    width: 10%;
+    height: 27px;
+    font-size: 16px;
+    padding: 1px;
+    border: 1px solid #fff;
+    background-color: black;
+    color: white;
+    -webkit-appearance: none;
+}
+#comments table{
+    width: 90%;
+    color: white;
+    text-align: left;
+    margin-top: 10px;
+}
+.comment-content{
+    font-family: 'Nanum Myeongjo', sans;
+    font-size: 16px;
+}
+.comment-info{
+    font-family: 'Nanum Myeongjo', sans;
+    font-size: 14px;
+    color: #999;
+    padding-bottom: 10px;
+}
+.comment-info span{
+    font-size: 11px;
 }
