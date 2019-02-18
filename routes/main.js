@@ -223,7 +223,7 @@ module.exports = (app) => {
     let d = new Date();
     let time = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
     
-    fs.appendFile('./public/uploads/log.txt',  `${time} [${tag}] ${str} \n`, 'utf8', function(err) {
+    fs.appendFile('./public/log.txt',  `${time} [${tag}] ${str} \n`, 'utf8', function(err) {
       console.log( `[${tag}] ${str} `);
     });
   }
