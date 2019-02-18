@@ -416,7 +416,6 @@ input[type="file"]{
     min-height: 100px;
     max-height: 500px;
     object-fit: contain;
-    background-color: #424242;
 }
 .detail-title{
     display: block;

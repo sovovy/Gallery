@@ -39,22 +39,25 @@ module.exports = (app) => {
       { id: req.body.gg_id, pwd: MD5(req.body.gg_pw) },
       (err, user) => {
         if (err) return res.status(500).json({ error: err });
+        let add = req.headers['x-forwarded-for'] || 
+          req.connection.remoteAddress || 
+          req.socket.remoteAddress ||
+          (req.connection.socket ? req.connection.socket.remoteAddress : null);
+          
         if (!user) {
-          require('dns').lookup(require('os').hostname(), function (err, add, fam) {
-            writeLog('login-fail', `${req.body.gg_id} , ${req.body.gg_pw} (${add})`);
-          })
-          return res.redirect(req.body.gg_url);
+          writeLog('login-fail', `${req.body.gg_id} , ${req.body.gg_pw} (${add})`);
+          return res.redirect(req.headers.referer);
         }
         // user exist
-        require('dns').lookup(require('os').hostname(), function (err, add, fam) {
-          writeLog('login', `${user.name} (${add})`);
-        })
+        // write log
+        writeLog('login', `${user.name} (${add})`);
+
         // save session
         req.session.gg_user_id = user.user_id;
         req.session.gg_id = user.id;
         req.session.gg_name = user.name;
         // redirect to prev
-        return res.redirect(req.body.gg_url);
+        return res.redirect(req.headers.referer);
       }
     );
   });
@@ -62,18 +65,21 @@ module.exports = (app) => {
   // logout
   app.get("/logout", (req, res) => {
     if (req.session.gg_id) {
-      require('dns').lookup(require('os').hostname(), function (err, add, fam) {
-        writeLog('logout', `${req.session.gg_name} (${add})`);
-        req.session.destroy(function(err) {
-          if (err) {
-            console.log(err);
-          } else {
-            res.redirect(req.query.url);
-          }
-        });
+      let add = req.headers['x-forwarded-for'] || 
+      req.connection.remoteAddress || 
+      req.socket.remoteAddress ||
+      (req.connection.socket ? req.connection.socket.remoteAddress : null);
+      
+      writeLog('logout', `${req.session.gg_name} (${add})`);
+      req.session.destroy(function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.redirect(req.headers.referer);
+        }
       });
     } else {
-      res.redirect(req.query.url);
+      res.redirect(req.headers.referer);
     }
   });
 
@@ -167,9 +173,12 @@ module.exports = (app) => {
       // get comments
       Comment.find({ image_no: req.query.no }, (err, comments) => {
         // write log
-        require('dns').lookup(require('os').hostname(), function (err, add, fam) {
-          writeLog('detail', `${req.session.gg_name}, ${image.no}, ${image.title}, ${image.views} (${add})`);
-        });
+        let add = req.headers['x-forwarded-for'] || 
+        req.connection.remoteAddress || 
+        req.socket.remoteAddress ||
+        (req.connection.socket ? req.connection.socket.remoteAddress : null);
+
+        writeLog('detail', `${req.session.gg_name}, ${image.no}, ${image.title}, ${image.views} (${add})`);
   
         // 받아온 no에 따른 사진, 제목, 작성자, 조회수 전달
         res.render("detail/index", {

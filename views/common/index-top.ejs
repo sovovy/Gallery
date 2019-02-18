@@ -21,15 +21,8 @@
           <button type="button" id="upload" onclick="location.href='/upload';"><img src="images/plus.png" alt="Logo"/><span>Upload</span></button>
           <!-- 마이페이지 -->
           <a href="/"><img src="images/user.png" alt="mypage" id="mypage"/></a>
-          <a href="/logout" id="login">logout</a>
+          <a href="/logout" id="login" onclick="location.href='/logout'">logout</a>
         </header>
-        <script>
-          $(document).ready(function(){
-            $('#login').click(function(){
-              location.href='/logout?url='+location.href;
-            });
-          });
-        </script>
         <% } else { %>
           <a style="cursor: pointer;" id="login">login</a>
         </header>
@@ -69,14 +62,10 @@
         <div id="mobile-menu" style="display: none;">
             <div id="mobile-mypage" class="mobile-btn" onclick="location.href='/mypage'"></div>
             <div id="mobile-upload" class="mobile-btn" onclick="location.href='/upload'"></div>
-            <div id="mobile-logout" class="mobile-btn"></div>
+            <div id="mobile-logout" class="mobile-btn" onclick="location.href='/logout'"></div>
         </div>
         <script>
           $(document).ready(function(){
-            $('#mobile-logout').click(function(){
-              location.href='/logout?url='+location.href;
-            });
-
             $('#mobile-menu-arrow').click(function(e){
               e.preventDefault();
               $('#mobile-menu').slideToggle(200);
