@@ -19,12 +19,17 @@
         <% } %>
         <div id="comments">
             <table>
-                <tr><td class="comment-content">ㅋㅋㅋㅋㅋㅋ</td></tr>
-                <tr><td class="comment-info">- ㅇㅇ <span>(2019-02-19 02:19:32)</span></td></tr>
-                <tr><td class="comment-content">ㅋㅋㅋㅋㅋㅋ</td></tr>
-                <tr><td class="comment-info">- ㅇㅇ <span>(2019-02-19 02:19:32)</span></td></tr>
-                <tr><td class="comment-content">ㅋㅋㅋㅋㅋㅋ</td></tr>
-                <tr><td class="comment-info">- ㅇㅇ <span>(2019-02-19 02:19:32)</span></td></tr>
+                <% if (comments.length==0){ %>
+                    <% if (id){ %>
+                        <div id="comment-no">첫 댓글을 달아보세요 :)</div>
+                    <% } else { %>
+                        <div id="comment-no">아직 댓글이 없습니다 :(</div>
+                    <% } %>
+                <% } %>
+                <% for (var i in comments){ %>
+                    <tr><td class="comment-content"><%= comments[i].content %></td></tr>
+                    <tr><td class="comment-info">- <%= comments[i].name %> <span>(<%= comments[i].date %>)</span></td></tr>
+                <% } %>
             </table>
         </div>
     </div>

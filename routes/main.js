@@ -154,6 +154,7 @@ module.exports = (app) => {
   // detail
   app.get("/detail", (req, res) => {
     const Image = require('../models/image');
+    const Comment = require('../models/comment');
     Image.findOne({ no: req.query.no }, (err, image) => {
       if (err) return res.status(500).json({ error: err });
       if (!image) return res.status(404).json({ error: err });
@@ -163,20 +164,24 @@ module.exports = (app) => {
         if(err) console.log('failed to update: ' + err);
       });
 
-      // write log
-      require('dns').lookup(require('os').hostname(), function (err, add, fam) {
-        writeLog('detail', `${req.session.gg_name}, ${image.title}, ${image.views} (${add})`);
-      });
-
-      // 받아온 no에 따른 사진, 제목, 작성자, 조회수 전달
-      res.render("detail/index", {
-        id: req.session.gg_id,
-        img: image.file_name,
-        title: image.title,
-        author: image.author,
-        views: image.views,
-        date: image.date.slice(0, 10),
-        no: req.query.no
+      // get comments
+      Comment.find({ image_no: req.query.no }, (err, comments) => {
+        // write log
+        require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+          writeLog('detail', `${req.session.gg_name}, ${image.no}, ${image.title}, ${image.views} (${add})`);
+        });
+  
+        // 받아온 no에 따른 사진, 제목, 작성자, 조회수 전달
+        res.render("detail/index", {
+          id: req.session.gg_id,
+          img: image.file_name,
+          title: image.title,
+          author: image.author,
+          views: image.views,
+          date: image.date.slice(0, 10),
+          no: req.query.no,
+          comments: comments
+        });
       });
     });
   });
@@ -188,11 +193,29 @@ module.exports = (app) => {
 
   // comment
   app.post("/comment", (req, res) => {
-    // check session
-    // req.body.no
-    // req.body.content
-    // req.session.gg_id
+    if(!req.session.gg_id) res.redirect(`/detail?no=${req.body.no}`);
+    
+    const Comment = require('../models/comment');
+    
+    let newComment = new Comment();
+    newComment.user_id = req.session.gg_user_id;
+    newComment.name = req.session.gg_name;
+    newComment.content = req.body.content;
+    newComment.image_no = req.body.no;
+
+    let d = new Date();
+    newComment.date = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
+
+    // write log
     writeLog('comment', `${req.session.gg_name}, ${req.body.no}, ${req.body.content}`);
+
+    newComment.save(err => {
+      if (err) {
+        console.error(err);
+      }
+    });
+
+    res.redirect(`/detail?no=${req.body.no}`);
   });
 
   function writeLog(tag, str){
