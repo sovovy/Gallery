@@ -10,7 +10,8 @@ const imageSchema = new mongoose.Schema({
     date: { type: String },
     file_name: { type: String },
     frame_num: { type: Number },
-    views: { type: Number }
+    views: { type: Number },
+    comment_num: { type: Number, default: 0 }
 });
 
 imageSchema.plugin(autoIncrement.plugin, {

@@ -286,6 +286,10 @@ section{
     line-height: 2;
     white-space: nowrap;
 }
+.item-title span{
+    color: #888;
+    font-size: 15px;
+}
 .item-author{
     color: #aaa;
     font-family: 'Nanum Myeongjo', sans;
@@ -330,7 +334,6 @@ footer{
         max-height: 500px;
         min-height: 100px;
         object-fit: contain;
-        background-color: #424242;
     }
     #upload-caption{
         /* display: inline-block; */
@@ -356,7 +359,6 @@ footer{
         max-height: 500px;
         min-height: 100px;
         object-fit: contain;
-        background-color: #424242;
     }
     #upload-caption{
         display: inline-block;

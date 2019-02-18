@@ -14,10 +14,10 @@ module.exports = (app) => {
             else
               total++;
 
-            if (total <= 20)
+            if ( ( images[i].comment_num > 0 && total <= 17 ) || ( images[i].comment_num == 0 && total <= 20 ) ) 
               len = j + 1;
           }
-          if (total > 20)
+          if ( ( images[i].comment_num > 0 && total > 17 ) || ( images[i].comment_num == 0 && total > 20 ) ) 
               images[i].title = images[i].title.slice(0, len)+'…';
         }
         res.render("main/index",{
@@ -222,6 +222,18 @@ module.exports = (app) => {
       if (err) {
         console.error(err);
       }
+    });
+
+    // image's comment_num ++
+    const Image = require('../models/image');
+    Image.findOne({ no: req.body.no }, (err, image) => {
+      if (err) return res.status(500).json({ error: err });
+      if (!image) return res.status(404).json({ error: err });
+
+      image.comment_num++;
+      image.save(function(err){
+        if(err) console.log('failed to update: ' + err);
+      });
     });
 
     res.redirect(`/detail?no=${req.body.no}`);
