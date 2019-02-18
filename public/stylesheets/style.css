@@ -322,11 +322,15 @@ footer{
 
 /* upload mobile/desktop */
 @media (max-width: 570px) {
+    #upload-img-container{
+        width: 100%;
+    }
     #upload-img{
         width: 100%;
         max-height: 500px;
         min-height: 100px;
         object-fit: contain;
+        background-color: #424242;
     }
     #upload-caption{
         /* display: inline-block; */
@@ -349,8 +353,10 @@ footer{
 @media (min-width: 571px) {
     #upload-img{
         width: 500px;
-        height: 500px;
+        max-height: 500px;
+        min-height: 100px;
         object-fit: contain;
+        background-color: #424242;
     }
     #upload-caption{
         display: inline-block;
@@ -410,6 +416,7 @@ input[type="file"]{
     min-height: 100px;
     max-height: 500px;
     object-fit: contain;
+    background-color: #424242;
 }
 .detail-title{
     display: block;
